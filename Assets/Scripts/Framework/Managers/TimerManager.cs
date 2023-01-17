@@ -145,6 +145,13 @@ namespace Framework.Managers
             return timerId;
         }
 
+        /// <summary>
+        /// 启动一个只重复一次的定时器，并获取对应的计时器id
+        /// </summary>
+        /// <param name="delay"></param>
+        /// <param name="onTickHandler"></param>
+        /// <param name="onCompleteHandler"></param>
+        /// <returns></returns>
         public int ScheduleOnce(
             float delay,
             OnTickHandler onTickHandler = null, 
@@ -204,6 +211,31 @@ namespace Framework.Managers
             OnCompleteHandler onCompleteHandler = null)
         {
             return Schedule(delay, 1, 0f, param, shouldScaled, onTickHandler, onCompleteHandler);
+        }
+
+        /// <summary>
+        /// 启动一个立刻开始且无限重复的定时器，并获取对应的计时器id
+        /// </summary>
+        /// <param name="interval"></param>
+        /// <param name="onTickHandler"></param>
+        /// <param name="onCompleteHandler"></param>
+        /// <returns></returns>
+        public int Schedule(float interval, OnTickHandler onTickHandler = null, OnCompleteHandler onCompleteHandler = null)
+        {
+            return Schedule(0, 0, interval, onTickHandler, onCompleteHandler);
+        }
+
+        /// <summary>
+        /// 启动一个立刻开始且无限重复的定时器，并获取对应的计时器id
+        /// </summary>
+        /// <param name="interval"></param>
+        /// <param name="shouldScaled"></param>
+        /// <param name="onTickHandler"></param>
+        /// <param name="onCompleteHandler"></param>
+        /// <returns></returns>
+        public int Schedule(float interval, bool shouldScaled, OnTickHandler onTickHandler = null, OnCompleteHandler onCompleteHandler = null)
+        {
+            return Schedule(0, 0, interval, shouldScaled, onTickHandler, onCompleteHandler);
         }
         
         /// <summary>
