@@ -132,6 +132,7 @@ namespace Framework.Managers
             timer.TimerId = timerId;
             timer.ShouldScaled = shouldScaled;
             timer.Delay = delay;
+            timer.Times = times;
             timer.Interval = interval;
             timer.Param = param;
             timer.OnTick = onTickHandler;
@@ -236,6 +237,22 @@ namespace Framework.Managers
         public int Schedule(float interval, bool shouldScaled, OnTickHandler onTickHandler = null, OnCompleteHandler onCompleteHandler = null)
         {
             return Schedule(0, 0, interval, shouldScaled, onTickHandler, onCompleteHandler);
+        }
+
+        /// <summary>
+        /// 重设一个已存在的计时器
+        /// </summary>
+        /// <param name="timerID"></param>
+        /// <exception cref="KeyNotFoundException"></exception>
+        public void ResetTimer(int timerID)
+        {
+            if (!timers.ContainsKey(timerID))
+            {
+                throw new KeyNotFoundException($"重置计时器时出错：不存在id为{timerID}的计时器");
+            }
+
+            timers[timerID].CurTimes = 0;
+            timers[timerID].Ticks = 0f;
         }
         
         /// <summary>
